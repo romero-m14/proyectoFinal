@@ -1,121 +1,243 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Windbnb - Stays in Finland</title>
-  <link rel="icon" type="image/png" href="./galeria/logo-f7862584.svg" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="./src/main.js"></script>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body class="bg-white min-h-screen p-4 md:p-12 text-[#333333]">
-
-  <div class="max-w-7xl mx-auto">
-
-    <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16 relative">
-      
-      <div class="flex justify-between items-center w-full md:w-auto gap-4">
-        <a href="#" class="flex items-center">
-          <img src="./galeria/logo-f7862584.svg" alt="Windbnb Logo" class="h-6 w-auto">
-        </a>
-      </div>
-
-      <div id="gatilloBusqueda" class="flex items-center border border-[#f2f2f2] shadow-sm text-sm overflow-hidden rounded-2xl bg-white divide-x divide-[#f2f2f2] cursor-pointer w-full md:w-auto">
-        <div class="px-6 py-4 text-xs w-40 text-[#bdbdbd]">Add Location</div>
-        <div class="px-6 py-4 text-xs w-32 text-[#bdbdbd]">Add guests</div>
-        <div class="px-6 py-4 text-[#eb5757] flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4 text-[#eb5757]">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
-        </div>
-      </div>
-
-      <div id="fondoOscuro" class="hidden fixed inset-0 bg-black/40 z-40 transition-opacity backdrop-blur-[1px]"></div>
-
-      <div id="menuBusqueda" class="hidden fixed top-0 left-0 w-full max-h-[65vh] md:max-h-none bg-white z-50 p-6 shadow-2xl rounded-b-3xl md:rounded-b-2xl border-none md:border border-gray-100 overflow-y-auto transition-all duration-300">
-        
-        <div class="flex justify-between items-center mb-6 md:hidden">
-          <span class="text-xs font-bold text-[#333333]">Edit your search</span>
-          <button id="btnCerrarMenuMvl" class="text-xl font-medium text-[#333333] p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer w-10 h-10 flex items-center justify-center">✕</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Windbnb - Stays in Finland</title>
+    <link rel="icon" type="image/png" href="./galeria/logo-f7862584.svg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="./src/main.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="bg-white min-h-screen p-4 md:p-12 text-[#333333]">
+    <div class="max-w-7xl mx-auto">
+      <header
+        class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16 relative"
+      >
+        <div class="flex justify-between items-center w-full md:w-auto gap-4">
+          <a href="#" class="flex items-center">
+            <img
+              src="./galeria/logo-f7862584.svg"
+              alt="Windbnb Logo"
+              class="h-6 w-auto"
+            />
+          </a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 border border-[#f2f2f2] shadow-md md:shadow-sm rounded-2xl items-center divide-y md:divide-y-0 md:divide-x divide-[#f2f2f2]">
-          <div class="p-4 px-6 flex flex-col justify-center h-20 md:h-16">
-            <label for="buscarCiudad" class="text-[9px] font-extrabold uppercase tracking-wider text-[#333333]">Location</label>
-            <input type="text" id="buscarCiudad" placeholder="Where are you going?" class="outline-none text-sm text-[#333333] placeholder-[#bdbdbd] bg-transparent w-full mt-1 md:mt-0.5">
+        <div
+          id="gatilloBusqueda"
+          class="flex items-center border border-[#f2f2f2] shadow-sm text-sm overflow-hidden rounded-2xl bg-white divide-x divide-[#f2f2f2] cursor-pointer w-full md:w-auto"
+        >
+          <div class="px-6 py-4 text-xs w-40 text-[#bdbdbd]">Add Location</div>
+          <div class="px-6 py-4 text-xs w-32 text-[#bdbdbd]">Add guests</div>
+          <div
+            class="px-6 py-4 text-[#eb5757] flex items-center justify-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="3"
+              stroke="currentColor"
+              class="w-4 h-4 text-[#eb5757]"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              />
+            </svg>
           </div>
+        </div>
 
-          <div class="p-4 px-6 flex flex-col justify-center h-20 md:h-16 relative">
-            <label for="buscarHuespedes" class="text-[9px] font-extrabold uppercase tracking-wider text-[#333333]">Guests</label>
-            <input type="text" id="buscarHuespedes" placeholder="Add guests" class="outline-none text-sm text-[#333333] placeholder-[#bdbdbd] bg-transparent w-full mt-1 md:mt-0.5 cursor-pointer" readonly>
-          </div>
+        <div
+          id="fondoOscuro"
+          class="hidden fixed inset-0 bg-black/40 z-40 transition-opacity backdrop-blur-[1px]"
+        ></div>
 
-          <div class="hidden md:flex p-3 px-6 items-center justify-center h-16 bg-white rounded-r-2xl">
-            <button id="btnEjecutarBusqueda" class="bg-[#eb5757] hover:bg-[#eb5757]/90 text-white rounded-xl px-6 py-2.5 flex items-center gap-2 text-sm font-semibold transition-colors shadow-sm cursor-pointer w-auto justify-center mx-auto">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4 text-white">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-              </svg>
-              Search
+        <div
+          id="menuBusqueda"
+          class="hidden fixed top-0 left-0 w-full max-h-[65vh] md:max-h-none bg-white z-50 p-6 shadow-2xl rounded-b-3xl md:rounded-b-2xl border-none md:border border-gray-100 overflow-y-auto transition-all duration-300"
+        >
+          <div class="flex justify-between items-center mb-6 md:hidden">
+            <span class="text-xs font-bold text-[#333333]"
+              >Edit your search</span
+            >
+            <button
+              id="btnCerrarMenuMvl"
+              class="text-xl font-medium text-[#333333] p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer w-10 h-10 flex items-center justify-center"
+            >
+              ✕
             </button>
           </div>
-        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-          <div class="px-4">
-            <ul id="listaSugerencias" class="flex flex-col gap-4 text-sm text-[#4f4f4f]"></ul>
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 border border-[#f2f2f2] shadow-md md:shadow-sm rounded-2xl items-center divide-y md:divide-y-0 md:divide-x divide-[#f2f2f2]"
+          >
+            <div class="p-4 px-6 flex flex-col justify-center h-20 md:h-16">
+              <label
+                for="buscarCiudad"
+                class="text-[9px] font-extrabold uppercase tracking-wider text-[#333333]"
+                >Location</label
+              >
+              <input
+                type="text"
+                id="buscarCiudad"
+                placeholder="Where are you going?"
+                class="outline-none text-sm text-[#333333] placeholder-[#bdbdbd] bg-transparent w-full mt-1 md:mt-0.5"
+              />
+            </div>
+
+            <div
+              class="p-4 px-6 flex flex-col justify-center h-20 md:h-16 relative"
+            >
+              <label
+                for="buscarHuespedes"
+                class="text-[9px] font-extrabold uppercase tracking-wider text-[#333333]"
+                >Guests</label
+              >
+              <input
+                type="text"
+                id="buscarHuespedes"
+                placeholder="Add guests"
+                class="outline-none text-sm text-[#333333] placeholder-[#bdbdbd] bg-transparent w-full mt-1 md:mt-0.5 cursor-pointer"
+                readonly
+              />
+            </div>
+
+            <div
+              class="hidden md:flex p-3 px-6 items-center justify-center h-16 bg-white rounded-r-2xl"
+            >
+              <button
+                id="btnEjecutarBusqueda"
+                class="bg-[#eb5757] hover:bg-[#eb5757]/90 text-white rounded-xl px-6 py-2.5 flex items-center gap-2 text-sm font-semibold transition-colors shadow-sm cursor-pointer w-auto justify-center mx-auto"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="3"
+                  stroke="currentColor"
+                  class="w-4 h-4 text-white"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                  />
+                </svg>
+                Search
+              </button>
+            </div>
           </div>
 
-          <div class="px-4 md:col-start-2 relative">
-            <div id="panelContadores" class="hidden md:block bg-white flex-col gap-6 pt-2">
-              <div class="flex justify-between items-center md:gap-8 mb-4">
-                <div class="flex flex-col gap-0.5">
-                  <span class="text-sm font-bold text-[#333333]">Adults</span>
-                  <span class="text-xs text-[#bdbdbd]">Ages 13 or above</span>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+            <div class="px-4">
+              <ul
+                id="listaSugerencias"
+                class="flex flex-col gap-4 text-sm text-[#4f4f4f]"
+              ></ul>
+            </div>
+
+            <div class="px-4 md:col-start-2 relative">
+              <div
+                id="panelContadores"
+                class="hidden md:block bg-white flex-col gap-6 pt-2"
+              >
+                <div class="flex justify-between items-center md:gap-8 mb-4">
+                  <div class="flex flex-col gap-0.5">
+                    <span class="text-sm font-bold text-[#333333]">Adults</span>
+                    <span class="text-xs text-[#bdbdbd]">Ages 13 or above</span>
+                  </div>
+                  <div class="flex items-center gap-4">
+                    <button
+                      id="btnMenosAdultos"
+                      class="w-8 h-8 border border-[#828282] text-[#828282] rounded-lg flex items-center justify-center text-lg hover:border-black cursor-pointer select-none"
+                    >
+                      -
+                    </button>
+                    <span
+                      id="cantAdultos"
+                      class="text-sm font-bold text-[#333333] w-4 text-center"
+                      >0</span
+                    >
+                    <button
+                      id="btnMasAdultos"
+                      class="w-8 h-8 border border-[#828282] text-[#828282] rounded-lg flex items-center justify-center text-lg hover:border-black cursor-pointer select-none"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
-                <div class="flex items-center gap-4">
-                  <button id="btnMenosAdultos" class="w-8 h-8 border border-[#828282] text-[#828282] rounded-lg flex items-center justify-center text-lg hover:border-black cursor-pointer select-none">-</button>
-                  <span id="cantAdultos" class="text-sm font-bold text-[#333333] w-4 text-center">0</span>
-                  <button id="btnMasAdultos" class="w-8 h-8 border border-[#828282] text-[#828282] rounded-lg flex items-center justify-center text-lg hover:border-black cursor-pointer select-none">+</button>
-                </div>
-              </div>
-              <div class="flex justify-between items-center md:gap-8">
-                <div class="flex flex-col gap-0.5">
-                  <span class="text-sm font-bold text-[#333333]">Children</span>
-                  <span class="text-xs text-[#bdbdbd]">Ages 2-12</span>
-                </div>
-                <div class="flex items-center gap-4">
-                  <button id="btnMenosNinos" class="w-8 h-8 border border-[#828282] text-[#828282] rounded-lg flex items-center justify-center text-lg hover:border-black cursor-pointer select-none">-</button>
-                  <span id="cantNinos" class="text-sm font-bold text-[#333333] w-4 text-center">0</span>
-                  <button id="btnMasNinos" class="w-8 h-8 border border-[#828282] text-[#828282] rounded-lg flex items-center justify-center text-lg hover:border-black cursor-pointer select-none">+</button>
+                <div class="flex justify-between items-center md:gap-8">
+                  <div class="flex flex-col gap-0.5">
+                    <span class="text-sm font-bold text-[#333333]"
+                      >Children</span
+                    >
+                    <span class="text-xs text-[#bdbdbd]">Ages 2-12</span>
+                  </div>
+                  <div class="flex items-center gap-4">
+                    <button
+                      id="btnMenosNinos"
+                      class="w-8 h-8 border border-[#828282] text-[#828282] rounded-lg flex items-center justify-center text-lg hover:border-black cursor-pointer select-none"
+                    >
+                      -
+                    </button>
+                    <span
+                      id="cantNinos"
+                      class="text-sm font-bold text-[#333333] w-4 text-center"
+                      >0</span
+                    >
+                    <button
+                      id="btnMasNinos"
+                      class="w-8 h-8 border border-[#828282] text-[#828282] rounded-lg flex items-center justify-center text-lg hover:border-black cursor-pointer select-none"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <div class="md:hidden mt-8 flex justify-center w-full pb-2">
+            <button
+              id="btnEjecutarBusquedaMvl"
+              class="bg-[#eb5757] hover:bg-[#eb5757]/90 text-white rounded-2xl px-8 py-3.5 flex items-center gap-2 text-sm font-semibold shadow-md cursor-pointer w-auto justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="3"
+                stroke="currentColor"
+                class="w-4 h-4 text-white"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                />
+              </svg>
+              search
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="flex justify-between items-center mb-8">
+          <h1 class="text-2xl font-bold text-[#333333]">Stays in Finland</h1>
+          <span id="contador" class="text-sm font-medium text-[#4f4f4f]"
+            >0+ stays</span
+          >
         </div>
 
-        <div class="md:hidden mt-8 flex justify-center w-full pb-2">
-          <button id="btnEjecutarBusquedaMvl" class="bg-[#eb5757] hover:bg-[#eb5757]/90 text-white rounded-2xl px-8 py-3.5 flex items-center gap-2 text-sm font-semibold shadow-md cursor-pointer w-auto justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4 text-white">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-            </svg>
-            search
-          </button>
-        </div>
-
-      </div>
-    </header>
-
-    <main>
-      <div class="flex justify-between items-center mb-8">
-        <h1 class="text-2xl font-bold text-[#333333]">Stays in Finland</h1>
-        <span id="contador" class="text-sm font-medium text-[#4f4f4f]">0+ stays</span>
-      </div>
-
-      <div id="hoteles" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 transition-all duration-300"></div>
-    </main>
-
-  </div>
-
-</body>
+        <div
+          id="hoteles"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 transition-all duration-300"
+        ></div>
+      </main>
+    </div>
+  </body>
 </html>

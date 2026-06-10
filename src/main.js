@@ -36,8 +36,10 @@ function mostrarHoteles(grupoDeHoteles) {
     return;
   }
 
-  grupoDeHoteles.forEach(hotel => {
-    let superHostHTML = hotel.superHost ? `<span class="border border-[#4f4f4f] text-[#4f4f4f] font-bold text-[10px] px-2 py-0.5 rounded-full uppercase">Superhost</span>` : "";
+  grupoDeHoteles.forEach((hotel) => {
+    let superHostHTML = hotel.superHost
+      ? `<span class="border border-[#4f4f4f] text-[#4f4f4f] font-bold text-[10px] px-2 py-0.5 rounded-full uppercase">Superhost</span>`
+      : "";
 
     contenedorHoteles.innerHTML += `
       <div class="flex flex-col gap-3">
@@ -66,9 +68,11 @@ function actualizarSugerencias() {
   lista.innerHTML = "";
   if (texto === "") return;
 
-  let ciudadesUnicas = [...new Set(dataHoteles.map(h => `${h.city}, ${h.country}`))];
-  
-  ciudadesUnicas.forEach(ciudad => {
+  let ciudadesUnicas = [
+    ...new Set(dataHoteles.map((h) => `${h.city}, ${h.country}`)),
+  ];
+
+  ciudadesUnicas.forEach((ciudad) => {
     if (ciudad.toLowerCase().includes(texto)) {
       lista.innerHTML += `
         <li class="opcion-ciudad flex items-center gap-3 cursor-pointer hover:text-black py-1" data-ciudad="${ciudad}">
@@ -84,18 +88,23 @@ function modificarContador(tipo, operacion) {
   if (operacion === "menos" && huespedes[tipo] > 0) huespedes[tipo]--;
   if (operacion === "mas") huespedes[tipo]++;
 
-  document.querySelector(tipo === "adultos" ? "#cantAdultos" : "#cantNinos").innerHTML = huespedes[tipo];
-  
+  document.querySelector(
+    tipo === "adultos" ? "#cantAdultos" : "#cantNinos",
+  ).innerHTML = huespedes[tipo];
+
   let total = huespedes.adultos + huespedes.ninos;
-  document.querySelector("#buscarHuespedes").value = total > 0 ? `${total} guests` : "";
+  document.querySelector("#buscarHuespedes").value =
+    total > 0 ? `${total} guests` : "";
 }
 
 function ejecutarFiltrado() {
   let ciudadUsuario = buscarCiudad.value.toLowerCase().trim();
   let totalBuscado = huespedes.adultos + huespedes.ninos;
 
-  let filtrados = dataHoteles.filter(h => 
-    `${h.city}, ${h.country}`.toLowerCase().includes(ciudadUsuario) && h.maxGuests >= totalBuscado
+  let filtrados = dataHoteles.filter(
+    (h) =>
+      `${h.city}, ${h.country}`.toLowerCase().includes(ciudadUsuario) &&
+      h.maxGuests >= totalBuscado,
   );
 
   mostrarHoteles(filtrados);
@@ -111,7 +120,7 @@ function resetearBusqueda() {
   document.querySelector("#cantNinos").innerHTML = 0;
   menuBusqueda.classList.add("hidden");
   fondoOscuro.classList.add("hidden");
-  
+
   if (window.innerWidth < 768) {
     document.querySelector("#panelContadores").classList.add("hidden");
   }
@@ -130,10 +139,18 @@ document.querySelector("#gatilloBusqueda").addEventListener("click", () => {
 
 buscarCiudad.addEventListener("input", actualizarSugerencias);
 
-document.querySelector("#btnMasAdultos").addEventListener("click", () => modificarContador("adultos", "mas"));
-document.querySelector("#btnMenosAdultos").addEventListener("click", () => modificarContador("adultos", "menos"));
-document.querySelector("#btnMasNinos").addEventListener("click", () => modificarContador("ninos", "mas"));
-document.querySelector("#btnMenosNinos").addEventListener("click", () => modificarContador("ninos", "menos"));
+document
+  .querySelector("#btnMasAdultos")
+  .addEventListener("click", () => modificarContador("adultos", "mas"));
+document
+  .querySelector("#btnMenosAdultos")
+  .addEventListener("click", () => modificarContador("adultos", "menos"));
+document
+  .querySelector("#btnMasNinos")
+  .addEventListener("click", () => modificarContador("ninos", "mas"));
+document
+  .querySelector("#btnMenosNinos")
+  .addEventListener("click", () => modificarContador("ninos", "menos"));
 
 document.addEventListener("click", (e) => {
   let opcion = e.target.closest(".opcion-ciudad");
@@ -151,14 +168,20 @@ document.addEventListener("click", (e) => {
   }
 });
 
-document.querySelector("#btnEjecutarBusqueda").addEventListener("click", ejecutarFiltrado);
+document
+  .querySelector("#btnEjecutarBusqueda")
+  .addEventListener("click", ejecutarFiltrado);
 
 if (document.querySelector("#btnEjecutarBusquedaMvl")) {
-  document.querySelector("#btnEjecutarBusquedaMvl").addEventListener("click", ejecutarFiltrado);
+  document
+    .querySelector("#btnEjecutarBusquedaMvl")
+    .addEventListener("click", ejecutarFiltrado);
 }
 
 if (document.querySelector("#btnCerrarMenuMvl")) {
-  document.querySelector("#btnCerrarMenuMvl").addEventListener("click", resetearBusqueda);
+  document
+    .querySelector("#btnCerrarMenuMvl")
+    .addEventListener("click", resetearBusqueda);
 }
 
 document.querySelector("header a").addEventListener("click", (evento) => {
