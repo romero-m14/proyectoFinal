@@ -43,3 +43,8 @@ Este comando se encargará de compilar los estilos cada vez que uses clases de T
 Ya tienes todo listo para empezar. Explora los archivos, experimenta con el código y diviértete aprendiendo. 🎉
 
 Si tienes dudas, no dudes en preguntar. ¡Éxito en tu proyecto! 💪
+
+
+Comentarios: 
+
+Hice un boton para mi logo para que cuando el usuario quiere volver a mirar de nuevo todos solo haga click y se borra las opciones que puso

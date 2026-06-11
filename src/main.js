@@ -11,13 +11,13 @@ let huespedes = { adultos: 0, ninos: 0 };
 // 2. Llamado del json
 async function iniciarApp() {
   try {
-    const res = await fetch("/stays.json");
+    const res = await fetch("./stays.json"); 
     dataHoteles = await res.json();
+    console.log("Mis productos cargados:", dataHoteles);
     if (dataHoteles.length) mostrarHoteles(dataHoteles);
   } catch (error) {
     console.error("Error al cargar la información de los hoteles:", error);
   }
-  console.log(dataHoteles);
 }
 iniciarApp();
 
@@ -64,12 +64,11 @@ function actualizarSugerencias() {
   let texto = buscarCiudad.value.toLowerCase().trim();
   let lista = document.querySelector("#listaSugerencias");
   lista.innerHTML = "";
-  if (texto === "") return;
 
   let ciudadesUnicas = [...new Set(dataHoteles.map(h => `${h.city}, ${h.country}`))];
   
   ciudadesUnicas.forEach(ciudad => {
-    if (ciudad.toLowerCase().includes(texto)) {
+    if (texto === "" || ciudad.toLowerCase().includes(texto)) {
       lista.innerHTML += `
         <li class="opcion-ciudad flex items-center gap-3 cursor-pointer hover:text-black py-1" data-ciudad="${ciudad}">
           <span class="text-gray-400">📍</span> ${ciudad}
@@ -99,7 +98,6 @@ function ejecutarFiltrado() {
   );
 
   mostrarHoteles(filtrados);
-  resetearBusqueda();
 }
 
 function resetearBusqueda() {
@@ -128,12 +126,28 @@ document.querySelector("#gatilloBusqueda").addEventListener("click", () => {
   actualizarSugerencias();
 });
 
-buscarCiudad.addEventListener("input", actualizarSugerencias);
+buscarCiudad.addEventListener("input", () => {
+  actualizarSugerencias();
+  ejecutarFiltrado();
+});
 
-document.querySelector("#btnMasAdultos").addEventListener("click", () => modificarContador("adultos", "mas"));
-document.querySelector("#btnMenosAdultos").addEventListener("click", () => modificarContador("adultos", "menos"));
-document.querySelector("#btnMasNinos").addEventListener("click", () => modificarContador("ninos", "mas"));
-document.querySelector("#btnMenosNinos").addEventListener("click", () => modificarContador("ninos", "menos"));
+buscarCiudad.addEventListener("focus", actualizarSugerencias);
+document.querySelector("#btnMasAdultos").addEventListener("click", () => {
+  modificarContador("adultos", "mas");
+  ejecutarFiltrado();
+});
+document.querySelector("#btnMenosAdultos").addEventListener("click", () => {
+  modificarContador("adultos", "menos");
+  ejecutarFiltrado();
+});
+document.querySelector("#btnMasNinos").addEventListener("click", () => {
+  modificarContador("ninos", "mas");
+  ejecutarFiltrado();
+});
+document.querySelector("#btnMenosNinos").addEventListener("click", () => {
+  modificarContador("ninos", "menos");
+  ejecutarFiltrado();
+});
 
 document.addEventListener("click", (e) => {
   let opcion = e.target.closest(".opcion-ciudad");
@@ -142,6 +156,7 @@ document.addEventListener("click", (e) => {
   if (opcion) {
     buscarCiudad.value = opcion.getAttribute("data-ciudad");
     document.querySelector("#listaSugerencias").innerHTML = "";
+    ejecutarFiltrado();
   } else if (inputHuespedes) {
     document.querySelector("#panelContadores").classList.toggle("hidden");
   } else if (e.target === fondoOscuro) {
@@ -149,10 +164,16 @@ document.addEventListener("click", (e) => {
   }
 });
 
-document.querySelector("#btnEjecutarBusqueda").addEventListener("click", ejecutarFiltrado);
+document.querySelector("#btnEjecutarBusqueda").addEventListener("click", () => {
+  ejecutarFiltrado();
+  resetearBusqueda(); 
+});
 
 if (document.querySelector("#btnEjecutarBusquedaMvl")) {
-  document.querySelector("#btnEjecutarBusquedaMvl").addEventListener("click", ejecutarFiltrado);
+  document.querySelector("#btnEjecutarBusquedaMvl").addEventListener("click", () => {
+    ejecutarFiltrado();
+    resetearBusqueda();
+  });
 }
 
 if (document.querySelector("#btnCerrarMenuMvl")) {
